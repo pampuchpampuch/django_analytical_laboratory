@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block 'body' %}
+<div class='container-fluid'>
+  <p>
+    <h3>Dane zlecenia</h3>
+  </p>
+  <div class="col-md-4">
+    <form method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <button type="submit" class="btn btn-primary">Zapisz</button>
+    </form>
+  </div>
+
+  <div>
+    <p>
+      <h3>Wyniki badań</h3>
+    </p>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Typ</th>
+          <th scope="col">Wynik badania</th>
+          <th scope="col">Wartość referencyjna</th>
+          <th scope="col">Jednostka</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for badanie in badania %}
+          {% if badanie.w_normie %}
+          <tr>
+          {% else %}
+          <tr class="table-danger">
+          {% endif %}
+              <td>{{badanie.typBadania.nazwa}}</td>
+              <td>{{badanie.wynik}}</td>
+              <td>{{badanie.typBadania.min_wart_ref}}-{{badanie.typBadania.maks_wart_ref}}</td>
+              <td>{{badanie.typBadania.jednostka}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% if not zlecenie.wykonane %}
+  <div class="col-md-2">
+    <p>
+      <h4>Dodaj wynik badania</h4>
+    </p>
+    <form method="post">
+      {% csrf_token %}
+      {{form_badanie.as_p}}
+      <button type="submit" class="btn btn-primary">Dodaj</button>
+    </form>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

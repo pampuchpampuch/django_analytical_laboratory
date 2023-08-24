@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block 'body' %}
+{{ form.non_field_errors }}
+<div class='container-fluid'>
+  <p>
+    <h2>Nowe zlecenie</h2>
+  </p>
+  <div class="col-md-4">
+    <form action="" method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+    <button type="submit" class="btn btn-primary">Dodaj</button>
+  <div class="col-md-4">
+
+</div>
+{% endblock %}

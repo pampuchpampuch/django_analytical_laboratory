@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block 'body' %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Imię</th>
+      <th scope="col">Nazwisko</th>
+      <th scope="col">Data</th>
+      <th scope="col">Godzina</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for zlecenie in zlecenia %}
+      <tr>
+          <td>{{zlecenie.imie}}</td>
+          <td>{{zlecenie.nazwisko}}</td>
+          <td>{{zlecenie.data}}</td>
+          <td>{{zlecenie.godzina}}</td>
+          <td><a class="btn btn-primary" href="{% url 'badania:edycja_zlecenia' pk=zlecenie.pk %}">Edytuj</a></td>
+          <td><a class="btn btn-primary" href="usuwanie/{{ zlecenie.pk }}">Usuń</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a class="btn btn-primary" href="{% url 'badania:dodawanie_zlecenia' %}">Dodaj zlecenie</a>
+{% endblock %}
